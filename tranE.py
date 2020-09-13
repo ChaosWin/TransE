@@ -258,7 +258,6 @@ if __name__ == '__main__':
     lossList = transE.transE(10000)
     # 绘图
     draw(lossList)
-
     transE.writeRelationVector("result/relationVector.txt")
     transE.writeEntilyVector("result/entityVector.txt")
 

@@ -104,7 +104,7 @@ def openD(dir, sp="\t"):
                 continue
             list.append(tuple(triple))
             num += 1
-    print(num)
+    # print(num)
     return num, list
 
 def loadData(str):
@@ -115,38 +115,38 @@ def loadData(str):
     return datArr, nameArr
 
 if __name__ == '__main__':
-    dirTrain = "C:\\data\\train.txt"
+    dirTrain = "data/FB15k/train.txt"
     tripleNumTrain, tripleListTrain = openD(dirTrain)
-    dirTest = "C:\\data\\test.txt"
+    dirTest = "data/FB15k/test.txt"
     tripleNumTest, tripleListTest = openD(dirTest)
-    dirEntityVector = "c:\\entityVector.txt"
+    dirEntityVector = "result/entityVector.txt"
     entityVectorList, entityList = loadData(dirEntityVector)
-    dirRelationVector = "c:\\relationVector.txt"
+    dirRelationVector = "result/relationVector.txt"
     relationVectorList, relationList = loadData(dirRelationVector)
-    print("kaishitest")
+    print("开始测试")
 
     testHeadRaw = Test(entityList, entityVectorList, relationList, relationVectorList, tripleListTrain, tripleListTest)
     testHeadRaw.getRank()
     print(testHeadRaw.getMeanRank())
-    testHeadRaw.writeRank("c:\\" + "testHeadRaw" + ".txt")
+    testHeadRaw.writeRank("result/test" + "testHeadRaw" + ".txt")
     testHeadRaw.getRelationRank()
     print(testHeadRaw.getMeanRank())
-    testHeadRaw.writeRank("c:\\" + "testRelationRaw" + ".txt")
+    testHeadRaw.writeRank("result/test" + "testRelationRaw" + ".txt")
 
     testTailRaw = Test(entityList, entityVectorList, relationList, relationVectorList, tripleListTrain, tripleListTest, label = "tail")
     testTailRaw.getRank()
     print(testTailRaw.getMeanRank())
-    testTailRaw.writeRank("c:\\" + "testTailRaw" + ".txt")
+    testTailRaw.writeRank("result/test" + "testTailRaw" + ".txt")
 
     testHeadFit = Test(entityList, entityVectorList, relationList, relationVectorList, tripleListTrain, tripleListTest, isFit = True)
     testHeadFit.getRank()
     print(testHeadFit.getMeanRank())
-    testHeadFit.writeRank("c:\\" + "testHeadFit" + ".txt")
+    testHeadFit.writeRank("result/test" + "testHeadFit" + ".txt")
     testHeadFit.getRelationRank()
     print(testHeadFit.getMeanRank())
-    testHeadFit.writeRank("c:\\" + "testRelationFit" + ".txt")
+    testHeadFit.writeRank("result/test" + "testRelationFit" + ".txt")
 
     testTailFit = Test(entityList, entityVectorList, relationList, relationVectorList, tripleListTrain, tripleListTest, isFit = True, label = "tail")
     testTailFit.getRank()
     print(testTailFit.getMeanRank())
-    testTailFit.writeRank("c:\\" + "testTailFit" + ".txt")
+    testTailFit.writeRank("result/test" + "testTailFit" + ".txt")
