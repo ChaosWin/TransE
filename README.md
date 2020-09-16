@@ -1,3 +1,5 @@
+codes forked by https://github.com/wuxiyu/transE, Thanks. Just add some comments and ready for other presentation learning.
+
 transE by Python
 ======
 Train transE.py and test test.py.  
