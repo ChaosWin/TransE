@@ -242,22 +242,35 @@ def draw(list):
 
 if __name__ == '__main__':
     # 读取实体集合 txt文本格式为：实体\ID，切分
-    dirEntity = "data/FB15k/entity2id.txt"
+    dirEntity = "data/WN18/entity2id.txt"
     entityIdNum, entityList = openDetailsAndId(dirEntity)
     # 读取关系集合 txt文本格式为：关系\ID，切分
-    dirRelation = "data/FB15k/relation2id.txt"
+    dirRelation = "data/WN18/relation2id.txt"
     relationIdNum, relationList = openDetailsAndId(dirRelation)
     # 读取训练集 txt文本格式为：实体\实体\ID，切分
-    dirTrain = "data/FB15k/train.txt"
+    dirTrain = "data/WN18/train.txt"
     tripleNum, tripleList = openTrain(dirTrain)
     print("打开TransE")
-    transE = TransE(entityList,relationList,tripleList, margin=1, dimension = 100, L1=False)
+    transE = TransE(entityList,relationList,tripleList, margin=1,learingRate = 0.05, dimension = 150, L1=False)
     print("TranE初始化")
     transE.initialize()
-    # transE.transE(1500)
-    lossList = transE.transE(10000)
-    # 绘图
-    draw(lossList)
+    # # transE.transE(1500)
+    lossList = transE.transE(5000)
     transE.writeRelationVector("result/relationVector.txt")
     transE.writeEntilyVector("result/entityVector.txt")
+     # 绘图
+    draw(lossList)
 
+
+# 实验结果
+#  # 大小为40943，维度估计85，实际20: 
+# loss从155降低到105
+# 维度为85时：
+# loss从148降到了83
+# 那么维度为120时会有提升吗？还是因为学习率较大？
+# loss从148降低到了80.没有明显的提升
+# 20到85扩大了65个维度，那么85+65=150维度时？
+# loss从148到77，效果可以但是没有从20到85提升明显
+
+# 总结：最优维度可以设置为85.在维度为150的情况下，运行5000次有明显的梯度放缓的现象，大约7000次循环后，梯度稳定下来。
+# 下一步可以设置为维度85，1w次循环结果作为最后的离散高维向量空间。
